@@ -1,0 +1,104 @@
+{% extends '_base_create_update.html' %}
+{% load static %}
+{% load bootstrap3 %}
+{% load i18n %}
+
+{% block form %}
+    <form id="appForm" method="post" class="form-horizontal">
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        {% csrf_token %}
+        {% bootstrap_field form.name layout="horizontal" %}
+        {% bootstrap_field form.asset layout="horizontal" %}
+        {% bootstrap_field form.system_user layout="horizontal" %}
+        {% bootstrap_field form.app_type layout="horizontal" %}
+
+        <div class="hr-line-dashed"></div>
+
+        {# chrome #}
+        <div class="chrome-fields">
+        {% bootstrap_field form.chrome_path layout="horizontal" %}
+        {% bootstrap_field form.chrome_target layout="horizontal" %}
+        {% bootstrap_field form.chrome_username layout="horizontal" %}
+        {% bootstrap_field form.chrome_password layout="horizontal" %}
+        </div>
+
+        {# db client #}
+        <div class="db-fields">
+        {% bootstrap_field form.db_path layout="horizontal" %}
+        {% bootstrap_field form.db_ip layout="horizontal" %}
+        {% bootstrap_field form.db_name layout="horizontal" %}
+        {% bootstrap_field form.db_username layout="horizontal" %}
+        {% bootstrap_field form.db_password layout="horizontal" %}
+        </div>
+
+        {# vmware client #}
+        <div class="vmware-fields">
+        {% bootstrap_field form.vmware_path layout="horizontal" %}
+        {% bootstrap_field form.vmware_target layout="horizontal" %}
+        {% bootstrap_field form.vmware_username layout="horizontal" %}
+        {% bootstrap_field form.vmware_password layout="horizontal" %}
+        </div>
+
+        {# other #}
+        <div class="other-fields">
+        {% bootstrap_field form.other_path layout="horizontal" %}
+        {% bootstrap_field form.other_cmdline layout="horizontal" %}
+        {% bootstrap_field form.other_target layout="horizontal" %}
+        {% bootstrap_field form.other_username layout="horizontal" %}
+        {% bootstrap_field form.other_password layout="horizontal" %}
+        </div>
+
+        {% bootstrap_field form.comment layout="horizontal" %}
+        <div class="hr-line-dashed"></div>
+        <div class="form-group">
+            <div class="col-sm-4 col-sm-offset-2">
+                <button class="btn btn-default" type="reset"> {% trans 'Reset' %}</button>
+
+                <button id="submit_button" class="btn btn-primary" type="submit">{% trans 'Submit' %}</button>
+            </div>
+        </div>
+
+    </form>
+{% endblock %}
+
+{% block custom_foot_js %}
+<script type="text/javascript">
+var app_type_id = '#' + '{{ form.app_type.id_for_label }}';
+var all_type_fields = [
+    '.chrome-fields', '.db-fields', '.vmware-fields', '.other-fields'
+];
+
+function appTypeChange(){
+    var app_type = $(app_type_id+ " option:selected").val();
+    $.each(all_type_fields, function(index, value){
+        $(value).addClass('hidden')
+    });
+    if (app_type === 'chrome'){
+        $('.chrome-fields').removeClass('hidden')
+    }
+    else if(app_type === 'vmware'){
+        $('.vmware-fields').removeClass('hidden')
+    }
+    else if(app_type === 'other'){
+        $('.other-fields').removeClass('hidden')
+    }
+    else{
+        $('.db-fields').removeClass('hidden')
+    }
+}
+
+$(document).ready(function () {
+    $('.select2').select2({
+        closeOnSelect: true
+     });
+    appTypeChange()
+})
+.on('change', app_type_id, function(){
+    appTypeChange();
+});
+</script>
+{% endblock %}

@@ -27,5 +27,12 @@ class ApplicationSerializer(BulkSerializerMixin, serializers.ModelSerializer):
         list_serializer_class = AdaptedBulkListSerializer
         fields = '__all__'
 
-    def is_valid(self, raise_exception=False):
-        return super().is_valid()
+    def get_field_names(self, declared_fields, info):
+        fields = super().get_field_names(declared_fields, info)
+        fields.extend([
+            'asset_info', 'system_user_info', 'get_app_type_display'
+        ])
+        return fields
+
+    # def is_valid(self, raise_exception=False):
+    #     return super().is_valid()

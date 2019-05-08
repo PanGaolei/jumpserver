@@ -9,15 +9,12 @@ from django.utils.translation import ugettext_lazy as _
 from orgs.mixins import OrgModelMixin
 from common.fields.model import JsonDictTextField
 
+from .. import const
+
 __all__ = ['Application']
 
 
 class Application(OrgModelMixin):
-
-    TYPE_CHROME = 'chrome'
-    TYPE_CHOICES = (
-        (TYPE_CHROME, 'Chrome'),
-    )
 
     id = models.UUIDField(
         default=uuid.uuid4, primary_key=True
@@ -32,7 +29,8 @@ class Application(OrgModelMixin):
         'assets.SystemUser', on_delete=models.CASCADE, verbose_name=_('System user')
     )
     app_type = models.CharField(
-        max_length=128, choices=TYPE_CHOICES, verbose_name=_('Type')
+        default=const.APP_TYPE_CHROME,
+        max_length=128, choices=const.APP_TYPE_CHOICES, verbose_name=_('App type')
     )
     params = JsonDictTextField(
         max_length=4096, blank=True, null=True, verbose_name=_('Params')
@@ -53,3 +51,15 @@ class Application(OrgModelMixin):
 
     def __str__(self):
         return self.name
+
+    def asset_info(self):
+        return {
+            'id': self.asset.id,
+            'hostname': self.asset.hostname
+        }
+
+    def system_user_info(self):
+        return {
+            'id': self.system_user.id,
+            'name': self.system_user.name
+        }

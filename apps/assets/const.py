@@ -51,3 +51,22 @@ TASK_OPTIONS = {
 
 CACHE_KEY_ASSET_BULK_UPDATE_ID_PREFIX = '_KEY_ASSET_BULK_UPDATE_ID_{}'
 
+# asset > application > app_type
+APP_TYPE_CHROME = 'chrome'
+APP_TYPE_PLSQL = 'plsql'
+APP_TYPE_MSSQL = 'mssql'
+APP_TYPE_MYSQL_WORKBENCH = 'mysql_workbench'
+APP_TYPE_VMWARE_CLIENT = 'vmware'
+APP_TYPE_OTHER = 'other'
+
+DB_APP_TYPE = [APP_TYPE_PLSQL, APP_TYPE_MSSQL, APP_TYPE_MYSQL_WORKBENCH]
+
+APP_TYPE_CHOICES = (
+    (APP_TYPE_CHROME, 'Chrome'),
+    (APP_TYPE_PLSQL, 'PL/SQL'),
+    (APP_TYPE_MSSQL, 'msSQL'),
+    (APP_TYPE_MYSQL_WORKBENCH, 'MySQL Workbench'),
+    (APP_TYPE_VMWARE_CLIENT, 'VMware Client'),
+    (APP_TYPE_OTHER, 'Other'),
+)
+
