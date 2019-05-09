@@ -52,7 +52,7 @@ function initTable() {
                 var app_type = rowData.app_type;
                 var target;
                 if (app_type === 'chrome'){
-                    target = cellData.chrome_target
+                    target = cellData.browser_target
                 }
                 else if (app_type === 'vmware'){
                     target = cellData.vmware_target
@@ -68,21 +68,21 @@ function initTable() {
             }},
             {targets: 6, createdCell: function (td, cellData, rowData) {
                 var app_type = rowData.app_type;
-                var login_username;
+                var username;
                 if (app_type === 'chrome'){
-                    login_username = cellData.chrome_username
+                    username = cellData.browser_username
                 }
                 else if (app_type === 'vmware'){
-                    login_username = cellData.vmware_username
+                    username = cellData.vmware_username
                 }
                 else if (app_type === 'other'){
-                    login_username = cellData.other_username
+                    username = cellData.other_username
                 }
                 else{
-                    login_username = cellData.db_username
+                    username = cellData.db_username
                 }
-                var username = htmlEscape(login_username);
-                $(td).html(username);
+                var login_username = htmlEscape(username);
+                $(td).html(login_username);
             }},
             {targets: 8, createdCell: function (td, cellData, rowData) {
                 var update_btn = '<a href="{% url "assets:application-update" pk=DEFAULT_PK %}" class="btn btn-xs btn-info">{% trans "Update" %}</a>'.replace("{{ DEFAULT_PK }}", cellData);

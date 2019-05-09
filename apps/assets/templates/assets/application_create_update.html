@@ -18,12 +18,12 @@
 
         <div class="hr-line-dashed"></div>
 
-        {# chrome #}
-        <div class="chrome-fields">
-        {% bootstrap_field form.chrome_path layout="horizontal" %}
-        {% bootstrap_field form.chrome_target layout="horizontal" %}
-        {% bootstrap_field form.chrome_username layout="horizontal" %}
-        {% bootstrap_field form.chrome_password layout="horizontal" %}
+        {# browser #}
+        <div class="browser-fields">
+        {% bootstrap_field form.browser_path layout="horizontal" %}
+        {% bootstrap_field form.browser_target layout="horizontal" %}
+        {% bootstrap_field form.browser_username layout="horizontal" %}
+        {% bootstrap_field form.browser_password layout="horizontal" %}
         </div>
 
         {# db client #}
@@ -69,7 +69,7 @@
 <script type="text/javascript">
 var app_type_id = '#' + '{{ form.app_type.id_for_label }}';
 var all_type_fields = [
-    '.chrome-fields', '.db-fields', '.vmware-fields', '.other-fields'
+    '.browser-fields', '.db-fields', '.vmware-fields', '.other-fields'
 ];
 
 function appTypeChange(){
@@ -78,7 +78,7 @@ function appTypeChange(){
         $(value).addClass('hidden')
     });
     if (app_type === 'chrome'){
-        $('.chrome-fields').removeClass('hidden')
+        $('.browser-fields').removeClass('hidden')
     }
     else if(app_type === 'vmware'){
         $('.vmware-fields').removeClass('hidden')
