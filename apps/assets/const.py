@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 #
 
+from django.utils.translation import ugettext_lazy as _
+
 UPDATE_ASSETS_HARDWARE_TASKS = [
    {
        'name': "setup",
@@ -62,11 +64,23 @@ APP_TYPE_OTHER = 'other'
 DB_APP_TYPE = [APP_TYPE_PLSQL, APP_TYPE_MSSQL, APP_TYPE_MYSQL_WORKBENCH]
 
 APP_TYPE_CHOICES = (
-    (APP_TYPE_CHROME, 'Chrome'),
-    (APP_TYPE_PLSQL, 'PL/SQL'),
-    (APP_TYPE_MSSQL, 'msSQL'),
-    (APP_TYPE_MYSQL_WORKBENCH, 'MySQL Workbench'),
-    (APP_TYPE_VMWARE_CLIENT, 'VMware Client'),
-    (APP_TYPE_OTHER, 'Other'),
+    (_('Browser'), (
+        (APP_TYPE_CHROME, 'Chrome'),
+    )
+    ),
+    (_('Database tools'), (
+        (APP_TYPE_PLSQL, 'PL/SQL'),
+        (APP_TYPE_MSSQL, 'msSQL'),
+        (APP_TYPE_MYSQL_WORKBENCH, 'MySQL Workbench')
+    )
+    ),
+    (_('Virtualization tools'), (
+        (APP_TYPE_VMWARE_CLIENT, 'VMware Client'),
+    )
+    ),
+    (_('Custom'), (
+        (APP_TYPE_OTHER, 'Other'),
+    )
+    ),
 )
 
